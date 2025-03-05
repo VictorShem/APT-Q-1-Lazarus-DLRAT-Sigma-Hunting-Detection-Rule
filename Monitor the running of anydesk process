@@ -1,0 +1,24 @@
+title: Monitor the running of anydesk process
+id: e21484c9-ec73-4d01-bb80-b5cd8c3fdb6a
+status: experimental
+description: In the final stage of the APT-Q-1 Lazarus attack, the attacker will send AnyDesk remote control software to the target user, thereby gaining complete control of the target user's system, stealing data or performing destructive operations at will. At the same time, AnyDesk is also one of the most commonly used remote control tools by ransomware organizations.
+references:
+    - https://pub1-bjyt.s3.360.cn/bcms/2024%E5%B9%B4%E5%85%A8%E7%90%83%E9%AB%98%E7%BA%A7%E6%8C%81%E7%BB%AD%E6%80%A7%E5%A8%81%E8%83%81%EF%BC%88APT%EF%BC%89%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.pdf
+author: Hu@Sha
+date: 2025-03-05
+modified: 2024-03-05
+tags:
+    - attack.command_and_control
+    - attack.t1219
+logsource:
+    product: windows
+    service: sysmon
+    category: process_create
+detection:
+    selection:
+        EventID: 1
+        Image: '*AnyDesk.exe*'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
