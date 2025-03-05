@@ -1,0 +1,25 @@
+title: Detect file creation activity of the DLRAT remote trojan horse used by Andariel, a subgroup of APT-Q-1 Lazarus
+id: b9939b2a-89fb-4269-9734-7c5bf7c46b31
+status: experimental
+description: Once the first initialization and beacon is performed, an initialization file is created, in the same directory, with the name 'SynUnst.ini'
+references:
+    - https://blog.talosintelligence.com/lazarus_new_rats_dlang_and_telegram/
+    - https://www.freebuf.com/articles/paper/386683.html
+author: Hu@Sha
+date: 2025-02-27
+modified: 2025-02-27
+tags:
+    - attack.initial_access
+    - attack.t1133
+logsource:
+    product: windows
+    service: sysmon
+    category: file_created
+detection:
+    selection:
+        EventID: 11
+        TargrtFilename: '*SynUnst.ini*'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
