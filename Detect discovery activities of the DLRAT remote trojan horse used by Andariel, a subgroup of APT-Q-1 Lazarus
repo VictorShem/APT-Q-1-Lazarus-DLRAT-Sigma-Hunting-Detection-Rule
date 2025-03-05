@@ -1,0 +1,29 @@
+title: Detect discovery activities of the DLRAT remote trojan horse used by Andariel, a subgroup of APT-Q-1 Lazarus
+id: 0c20a771-24c6-4021-bc80-a879b40c90f7
+status: experimental
+description: Detect discovery activities of the DLRAT remote trojan horse used by Andariel, a subgroup of APT-Q-1 Lazarus, pay attention,the following four commands will be executed simultaneously.
+references:
+    - https://blog.talosintelligence.com/lazarus_new_rats_dlang_and_telegram/
+    - https://www.freebuf.com/articles/paper/386683.html
+author: Hu@Sha
+date: 2025-02-27
+modified: 2025-02-27
+tags:
+    - attack.discovery
+    - attack.ta0007
+logsource:
+    product: windows
+    service: sysmon
+    category: process_create
+detection:
+    selection:
+        EventID: 1
+        CommandLine:
+          '|all':
+            - '"cmd.exe" /C "getmac"'
+            - '"cmd.exe" /C "ver"' 
+            - '"cmd.exe" /C "whoami"'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
